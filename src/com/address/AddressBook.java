@@ -1,5 +1,6 @@
 package com.address;
 
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -24,7 +25,7 @@ public class AddressBook {
 		Boolean ch = true;
 		int option;
 		while (ch) {
-			System.out.println("1.Add\n2.Edit\n3.Display\n4.Exit");
+			System.out.println("1.Add\n2.Edit\n3.Delete\n4.Display\n5.Exit");
 			option = scanner.nextInt();
 
 			switch (option) {
@@ -70,13 +71,24 @@ public class AddressBook {
 				break;
 
 			case 3:
+				System.out.println("Enter the contact name to be deleted");
+				String name = sc.nextLine();
+				Contact person2 = getPerson(list, name);
+				if (person2 == null)
+					System.out.println("Contacts not found");
+				else
+					list.remove(person2);
+				System.out.println("deleted successfully");
+				break;
+
+			case 4:
 				for (Contact values : list) {
 					System.out.println(values);
 
 				}
 				break;
 
-			case 4:
+			case 5:
 				ch = false;
 				break;
 			default:
