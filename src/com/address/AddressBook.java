@@ -9,6 +9,7 @@ public class AddressBook {
 
 	public static void main(String[] args) {
 		System.out.println("Welcome to Address Book Program");
+		//list stores multiple contacts
 		List<Contact> list = new ArrayList<>();
 		String firstName;
 		String lastName;
@@ -25,7 +26,7 @@ public class AddressBook {
 		Boolean ch = true;
 		int option;
 		while (ch) {
-			System.out.println("1.Add\n2.Edit\n3.Delete\n4.Display\n5.Exit");
+			System.out.println("1.Add contact\n2.Edit contact\n3.Delete contact\n4.Display contact\n5.Exit");
 			option = scanner.nextInt();
 
 			switch (option) {
