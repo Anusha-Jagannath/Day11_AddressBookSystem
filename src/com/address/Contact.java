@@ -9,10 +9,10 @@ public class Contact {
 	String city;
 	String state;
 	int zip;
-	int phoneNo;
+	String phoneNo;
 	String email;
 
-	Contact(String firstName, String lastName, String address, String city, String state, int zip, int phoneNo,
+	Contact(String firstName, String lastName, String address, String city, String state, int zip, String phoneNo,
 			String email) {
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -98,13 +98,13 @@ public class Contact {
 
 
 
-	public int getPhoneNo() {
+	public String getPhoneNo() {
 		return phoneNo;
 	}
 
 
 
-	public void setPhoneNo(int phoneNo) {
+	public void setPhoneNo(String phoneNo) {
 		this.phoneNo = phoneNo;
 	}
 

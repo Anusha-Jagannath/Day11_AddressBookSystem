@@ -1,6 +1,5 @@
 package com.address;
 
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -9,15 +8,14 @@ public class AddressBook {
 
 	public static void main(String[] args) {
 		System.out.println("Welcome to Address Book Program");
-		//list stores multiple contacts
-		List<Contact> list = new ArrayList<>();
+		List<Contact> list = new ArrayList<>(); // list stores multiple contacts
 		String firstName;
 		String lastName;
 		String address;
 		String city;
 		String state;
 		int zip;
-		int phoneNo;
+		String phoneNo;
 		String email;
 
 		Scanner sc = new Scanner(System.in);
@@ -50,7 +48,7 @@ public class AddressBook {
 				zip = scanner.nextInt();
 
 				System.out.println("Enter phone no");
-				phoneNo = scanner.nextInt();
+				phoneNo = sc.nextLine();
 
 				System.out.println("Enter email");
 				email = sc.nextLine();
@@ -72,9 +70,9 @@ public class AddressBook {
 				break;
 
 			case 3:
-				System.out.println("Enter the contact name to be deleted");
-				String name = sc.nextLine();
-				Contact person2 = getPerson(list, name);
+				System.out.println("Enter the contact first name to be deleted");
+				String fname = sc.nextLine();
+				Contact person2 = getPerson(list, fname);
 				if (person2 == null)
 					System.out.println("Contacts not found");
 				else
@@ -150,7 +148,7 @@ public class AddressBook {
 
 			case 7:
 				System.out.println("Enter phone no to edit");
-				int phone = sc.nextInt();
+				String phone = scanner.nextLine();
 				person.phoneNo = phone;
 				break;
 
@@ -178,7 +176,7 @@ public class AddressBook {
 
 	private static Contact getPerson(List<Contact> list, String editName) {
 		for (int i = 0; i < list.size(); i++) {
-			if (list.get(i).firstName.endsWith(editName))
+			if (list.get(i).firstName.equals(editName))
 				return list.get(i);
 		}
 		return null;
