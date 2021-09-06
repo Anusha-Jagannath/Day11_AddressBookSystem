@@ -55,7 +55,6 @@ public class AddressBook {
 
 				Contact contact = new Contact(firstName, lastName, address, city, state, zip, phoneNo, email);
 				list.add(contact);
-
 				break;
 
 			case 2:
