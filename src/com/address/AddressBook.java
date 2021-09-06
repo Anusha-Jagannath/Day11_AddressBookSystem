@@ -1,22 +1,25 @@
 package com.address;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 public class AddressBook {
+	static String firstName;
+	static String lastName;
+	static String address;
+	static String city;
+	static String state;
+	static int zip;
+	static String phoneNo;
+	static String email;
+	static Map<String, Contact> map = new HashMap<>();
+	static List<Contact> list = new ArrayList<>(); // list stores multiple contacts
 
 	public static void main(String[] args) {
 		System.out.println("Welcome to Address Book Program");
-		List<Contact> list = new ArrayList<>(); // list stores multiple contacts
-		String firstName;
-		String lastName;
-		String address;
-		String city;
-		String state;
-		int zip;
-		String phoneNo;
-		String email;
 
 		Scanner sc = new Scanner(System.in);
 		Scanner scanner = new Scanner(System.in);
@@ -29,43 +32,39 @@ public class AddressBook {
 
 			switch (option) {
 			case 1:
-				System.out.println("Enter first name");
-				firstName = sc.nextLine();
+				System.out.println("1.create new address book\n2.Existing address book");
+				int option2 = scanner.nextInt();
+				if (option2 == 1) {
+					System.out.println("Enter address book name");
+					String addressBookName = sc.nextLine();
+					addContact(addressBookName);
+				}
 
-				System.out.println("Enter second name");
-				lastName = sc.nextLine();
-
-				System.out.println("Enter address");
-				address = sc.nextLine();
-
-				System.out.println("Enter city");
-				city = sc.nextLine();
-
-				System.out.println("Enter state");
-				state = sc.nextLine();
-
-				System.out.println("Enter zip");
-				zip = scanner.nextInt();
-
-				System.out.println("Enter phone no");
-				phoneNo = sc.nextLine();
-
-				System.out.println("Enter email");
-				email = sc.nextLine();
-
-				Contact contact = new Contact(firstName, lastName, address, city, state, zip, phoneNo, email);
-				list.add(contact);
+				if (option2 == 2) {
+					String existAddress = scanner.nextLine();
+					if (map.containsKey(existAddress) == false) {
+						System.out.println("Address book name not found");
+					} else {
+						System.out.println("Address book found");
+						addContact(existAddress);
+					}
+				}
 				break;
 
 			case 2:
 				System.out.println("Enter the name of the contact you want to edit");
 				String editName = sc.nextLine();
-				Contact person = getPerson(list, editName);
-				if (person == null)
-					System.out.println("Contacts not found");
-				else
-					editContact(person);
-				System.out.println("Edited successfully");
+				if (list.size() != 0) {
+					Contact person = getPerson(list, editName);
+					if (person == null)
+						System.out.println("Contacts not found");
+					else
+						editContact(person);
+					System.out.println("Edited successfully");
+					break;
+
+				} else
+					System.out.println("Address book is empty");
 				break;
 
 			case 3:
@@ -78,22 +77,52 @@ public class AddressBook {
 					list.remove(person2);
 				System.out.println("deleted successfully");
 				break;
-
 			case 4:
 				for (Contact values : list) {
 					System.out.println(values);
-
 				}
 				break;
-
 			case 5:
 				ch = false;
 				break;
 			default:
 				ch = false;
 			}
-
 		}
+	}
+
+	private static void addContact(String addressBookName) {
+		Scanner sc = new Scanner(System.in);
+		Scanner scanner = new Scanner(System.in);
+
+		System.out.println("Enter first name");
+		firstName = sc.nextLine();
+
+		System.out.println("Enter second name");
+		lastName = sc.nextLine();
+
+		System.out.println("Enter address");
+		address = sc.nextLine();
+
+		System.out.println("Enter city");
+		city = sc.nextLine();
+
+		System.out.println("Enter state");
+		state = sc.nextLine();
+
+		System.out.println("Enter zip");
+		zip = scanner.nextInt();
+
+		System.out.println("Enter phone no");
+		phoneNo = sc.nextLine();
+
+		System.out.println("Enter email");
+		email = sc.nextLine();
+
+		Contact contact = new Contact(firstName, lastName, address, city, state, zip, phoneNo, email);
+		list.add(contact);
+		map.put(addressBookName, contact);
+		System.out.println(map);
 
 	}
 
@@ -110,7 +139,7 @@ public class AddressBook {
 		Boolean ch = true;
 		while (ch) {
 			System.out.println("1.Edit first name\n2.Edit last name\n"
-					+ "3.Edit Address\n4.City\n5.State\n6.Zip\n7.Phone no\n8.email\nExit");
+					+ "3.Edit Address\n4.City\n5.State\n6.Zip\n7.Phone no\n8.email\n9Exit");
 			option = sc.nextInt();
 			switch (option) {
 			case 1:
