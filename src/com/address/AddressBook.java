@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Scanner;
 import java.util.Set;
 
@@ -36,7 +37,7 @@ public class AddressBook {
 		int option;
 		while (ch) {
 			System.out.println(
-					"1.Add contact\n2.Edit contact\n3.Delete contact\n4.Display contact\n5.Search contact by place\n6.Exit");
+					"1.Add contact\n2.Edit contact\n3.Delete contact\n4.Display contact\n5.Search contact by place\n6.View person by city\n7.View person by state\n8.Exit");
 			option = scanner.nextInt();
 
 			switch (option) {
@@ -98,6 +99,24 @@ public class AddressBook {
 				searchContact(list, place);
 				break;
 			case 6:
+				System.out.println("Enter the City: ");
+				String city = sc.next();
+				System.out.println("Person's whose City is: " + city);
+				for (Entry<String, Contact> entry : ((Map<String, Contact>) list).entrySet()) {
+					searchContact(list, city);
+				}
+				break;
+
+			case 7:
+				System.out.println("Enter the state: ");
+				String state = sc.next();
+				System.out.println("Person's whose City is: " + state);
+				for (Entry<String, Contact> entry : ((Map<String, Contact>) list).entrySet()) {
+					searchContact(list, state);
+				}
+				break;
+
+			case 8:
 				ch = false;
 				break;
 			default:
@@ -247,13 +266,15 @@ public class AddressBook {
 
 	/**
 	 * search contact is used search the required contact
+	 * 
 	 * @param place to be searched
 	 */
 	private static void searchContact(List<Contact> list, String place) {
 		for (int i = 0; i < list.size(); i++) {
 			if (list.get(i).city.equals(place) || list.get(i).state.equals(place)) {
-				System.out.println("First name: "+list.get(i).firstName+"\nLast name : " +list.get(i).lastName+"\nPhone no : "+ list.get(i).phoneNo
-						+"\nZip :  "+list.get(i).zip +"\nEmail id :" +list.get(i).email+ "\nAddress: "+list.get(i).address);
+				System.out.println("First name: " + list.get(i).firstName + "\nLast name : " + list.get(i).lastName
+						+ "\nPhone no : " + list.get(i).phoneNo + "\nZip :  " + list.get(i).zip + "\nEmail id :"
+						+ list.get(i).email + "\nAddress: " + list.get(i).address);
 			}
 		}
 
