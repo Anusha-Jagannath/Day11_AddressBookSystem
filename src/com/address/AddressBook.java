@@ -35,7 +35,8 @@ public class AddressBook {
 		Boolean ch = true;
 		int option;
 		while (ch) {
-			System.out.println("1.Add contact\n2.Edit contact\n3.Delete contact\n4.Display contact\n5.Exit");
+			System.out.println(
+					"1.Add contact\n2.Edit contact\n3.Delete contact\n4.Display contact\n5.Search contact by place\n6.Exit");
 			option = scanner.nextInt();
 
 			switch (option) {
@@ -92,6 +93,11 @@ public class AddressBook {
 				}
 				break;
 			case 5:
+				System.out.println("Enter city or state");
+				String place = sc.nextLine();
+				searchContact(list, place);
+				break;
+			case 6:
 				ch = false;
 				break;
 			default:
@@ -129,7 +135,7 @@ public class AddressBook {
 		email = sc.nextLine();
 
 		Contact contact = new Contact(firstName, lastName, address, city, state, zip, phoneNo, email);
-		if (duplicateCheck(list, firstName,lastName)) {
+		if (!duplicateCheck(list, firstName, lastName)) {
 			list.add(contact);
 			map.put(addressBookName, contact);
 		}
@@ -223,12 +229,13 @@ public class AddressBook {
 
 	/**
 	 * Method to check for duplicate contacts
+	 * 
 	 * @param list
 	 * @param name
 	 * @param lastName
 	 * @return
 	 */
-	private static Boolean duplicateCheck(List<Contact> list, String name,String lastName) {
+	private static Boolean duplicateCheck(List<Contact> list, String name, String lastName) {
 		for (int i = 0; i < list.size(); i++) {
 			if (list.get(i).firstName.equals(name) && list.get(i).lastName.equals(lastName)) {
 				System.out.println("Contact already exists in this Address Book.");
@@ -236,5 +243,19 @@ public class AddressBook {
 			}
 		}
 		return false;
+	}
+
+	/**
+	 * search contact is used search the required contact
+	 * @param place to be searched
+	 */
+	private static void searchContact(List<Contact> list, String place) {
+		for (int i = 0; i < list.size(); i++) {
+			if (list.get(i).city.equals(place) || list.get(i).state.equals(place)) {
+				System.out.println("First name: "+list.get(i).firstName+"\nLast name : " +list.get(i).lastName+"\nPhone no : "+ list.get(i).phoneNo
+						+"\nZip :  "+list.get(i).zip +"\nEmail id :" +list.get(i).email+ "\nAddress: "+list.get(i).address);
+			}
+		}
+
 	}
 }
