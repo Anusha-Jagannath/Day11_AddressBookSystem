@@ -2,10 +2,18 @@ package com.address;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.Set;
 
+/**
+ * AddressBook is a class to add, delete, update contact Ability to create a
+ * Contacts in Address Book with first and last names, address, city, state,
+ * zip, phone number and email...
+ *
+ */
 public class AddressBook {
 	static String firstName;
 	static String lastName;
@@ -41,7 +49,8 @@ public class AddressBook {
 				}
 
 				if (option2 == 2) {
-					String existAddress = scanner.nextLine();
+					System.out.println("Enter the existing book adress");
+					String existAddress = sc.nextLine();
 					if (map.containsKey(existAddress) == false) {
 						System.out.println("Address book name not found");
 					} else {
@@ -120,8 +129,10 @@ public class AddressBook {
 		email = sc.nextLine();
 
 		Contact contact = new Contact(firstName, lastName, address, city, state, zip, phoneNo, email);
-		list.add(contact);
-		map.put(addressBookName, contact);
+		if (duplicateCheck(list, firstName,lastName)) {
+			list.add(contact);
+			map.put(addressBookName, contact);
+		}
 		System.out.println(map);
 
 	}
@@ -196,7 +207,7 @@ public class AddressBook {
 		}
 	}
 
-	/*
+	/**
 	 * method to fetch contact
 	 * 
 	 * @param list and name to be edited
@@ -208,5 +219,22 @@ public class AddressBook {
 				return list.get(i);
 		}
 		return null;
+	}
+
+	/**
+	 * Method to check for duplicate contacts
+	 * @param list
+	 * @param name
+	 * @param lastName
+	 * @return
+	 */
+	private static Boolean duplicateCheck(List<Contact> list, String name,String lastName) {
+		for (int i = 0; i < list.size(); i++) {
+			if (list.get(i).firstName.equals(name) && list.get(i).lastName.equals(lastName)) {
+				System.out.println("Contact already exists in this Address Book.");
+				return true;
+			}
+		}
+		return false;
 	}
 }

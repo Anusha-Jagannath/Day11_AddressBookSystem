@@ -1,6 +1,7 @@
 package com.address;
 
 import java.util.List;
+import java.util.Objects;
 
 public class Contact {
 	String firstName;
@@ -92,6 +93,26 @@ public class Contact {
 	public String toString() {
 		return "Contact [firstName=" + firstName + ", lastName=" + lastName + ", address=" + address + ", city=" + city
 				+ ", state=" + state + ", zip=" + zip + ", phoneNo=" + phoneNo + ", email=" + email + "]";
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(address, city, email, firstName, lastName, phoneNo, state, zip);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Contact other = (Contact) obj;
+		return Objects.equals(address, other.address) && Objects.equals(city, other.city)
+				&& Objects.equals(email, other.email) && Objects.equals(firstName, other.firstName)
+				&& Objects.equals(lastName, other.lastName) && Objects.equals(phoneNo, other.phoneNo)
+				&& Objects.equals(state, other.state) && zip == other.zip;
 	}
 
 }
