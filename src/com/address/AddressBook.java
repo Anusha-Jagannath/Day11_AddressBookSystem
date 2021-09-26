@@ -292,9 +292,9 @@ public class AddressBook {
 	}
 
 	/**
-	 * method to sort person names
+	 * method to sort person names,state,zip
 	 */
-	/*public static void sort() {
+	public static void sort() {
 		Contact contacts;
 		Map<String, Contact> sortedContact = contacts.entrySet().stream().sorted(Map.Entry.comparingByKey())
 				.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (oldValue, newValue) -> oldValue,
@@ -305,5 +305,5 @@ public class AddressBook {
 			System.out.println(entry.getValue());
 		}
 
-	}*/
+	}
 }
