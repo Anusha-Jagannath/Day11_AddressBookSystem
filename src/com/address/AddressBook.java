@@ -12,8 +12,10 @@ import java.util.Set;
 /**
  * AddressBook is a class to add, delete, update contact Ability to create a
  * Contacts in Address Book with first and last names, address, city, state,
- * zip, phone number and email...
- *
+ * zip, phone number and email... Ability to ensure there is no Duplicate Entry
+ * of the same Person in a particular Address Book. Ability to search Person in
+ * a City or State across the multiple AddressBook Ability to view person by
+ * cirt or state and get the count
  */
 public class AddressBook {
 	static String firstName;
@@ -162,7 +164,7 @@ public class AddressBook {
 
 	}
 
-	/*
+	/**
 	 * method to edit contact
 	 * 
 	 * @param person
@@ -272,8 +274,8 @@ public class AddressBook {
 	private static void searchContact(List<Contact> list, String place) {
 		for (int i = 0; i < list.size(); i++) {
 			if (list.get(i).city.equals(place) || list.get(i).state.equals(place)) {
-				System.out.println("First name: " + list.get(i).firstName + "\nLast name : " + list.get(i).lastName
-						+ "\nPhone no : " + list.get(i).phoneNo + "\nZip :  " + list.get(i).zip + "\nEmail id :"
+				System.out.println("First name: " + list.get(i).firstName + "\nLast name: " + list.get(i).lastName
+						+ "\nPhone no: " + list.get(i).phoneNo + "\nZip:  " + list.get(i).zip + "\nEmail id: "
 						+ list.get(i).email + "\nAddress: " + list.get(i).address);
 			}
 		}
