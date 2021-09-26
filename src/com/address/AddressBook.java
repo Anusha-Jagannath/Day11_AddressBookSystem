@@ -39,7 +39,7 @@ public class AddressBook {
 		int option;
 		while (ch) {
 			System.out.println(
-					"1.Add contact\n2.Edit contact\n3.Delete contact\n4.Display contact\n5.Search contact by place\n6.View person by city\n7.View person by state\n8.Exit");
+					"1.Add contact\n2.Edit contact\n3.Delete contact\n4.Display contact\n5.Search contact by place\n6.View person by city\n7.View person by state\n8.Sort by name\n9.Sort by city\n10.Sort by zip\n11.Exit");
 			option = scanner.nextInt();
 
 			switch (option) {
@@ -119,6 +119,15 @@ public class AddressBook {
 				break;
 
 			case 8:
+				sort();
+				break;
+			case 9:
+				sort();
+				break;
+			case 10:
+				sort();
+				break;
+			case 11:
 				ch = false;
 				break;
 			default:
@@ -281,4 +290,20 @@ public class AddressBook {
 		}
 
 	}
+
+	/**
+	 * method to sort person names
+	 */
+	/*public static void sort() {
+		Contact contacts;
+		Map<String, Contact> sortedContact = contacts.entrySet().stream().sorted(Map.Entry.comparingByKey())
+				.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (oldValue, newValue) -> oldValue,
+						LinkedHashMap::new));
+
+		for (Map.Entry<String, Contact> entry : sortedContact.entrySet()) {
+
+			System.out.println(entry.getValue());
+		}
+
+	}*/
 }
