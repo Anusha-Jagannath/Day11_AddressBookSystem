@@ -1,11 +1,17 @@
 package com.address;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.function.Consumer;
+
 import java.util.Scanner;
 import java.util.Set;
 
@@ -15,7 +21,7 @@ import java.util.Set;
  * zip, phone number and email... Ability to ensure there is no Duplicate Entry
  * of the same Person in a particular Address Book. Ability to search Person in
  * a City or State across the multiple AddressBook Ability to view person by
- * cirt or state and get the count
+ * city or state and get the count
  */
 public class AddressBook {
 	static String firstName;
@@ -28,6 +34,7 @@ public class AddressBook {
 	static String email;
 	static Map<String, Contact> map = new HashMap<>();
 	static List<Contact> list = new ArrayList<>(); // list stores multiple contacts
+	static String path = "/Users/anushajs/eclipse-workspace/Yml-training/Day11_AddressBook/src/data/address.txt";
 
 	public static void main(String[] args) {
 		System.out.println("Welcome to Address Book Program");
@@ -39,7 +46,7 @@ public class AddressBook {
 		int option;
 		while (ch) {
 			System.out.println(
-					"1.Add contact\n2.Edit contact\n3.Delete contact\n4.Display contact\n5.Search contact by place\n6.View person by city\n7.View person by state\n8.Sort by name\n9.Sort by city\n10.Sort by zip\n11.Exit");
+					"1.Add contact\n2.Edit contact\n3.Delete contact\n4.Display contact\n5.Search contact by place\n6.View person by city\n7.View person by state\n8.Sort by name\n9.Sort by city\n10.Sort by zip\n11.write to file\n12.Read from file\n13.Exit");
 			option = scanner.nextInt();
 
 			switch (option) {
@@ -128,6 +135,12 @@ public class AddressBook {
 				sort();
 				break;
 			case 11:
+				writeToFile(list);
+				break;
+			case 12:
+				readFile();
+				break;
+			case 13:
 				ch = false;
 				break;
 			default:
@@ -295,15 +308,53 @@ public class AddressBook {
 	 * method to sort person names,state and zip
 	 */
 	public static void sort() {
-		Contact contacts;
-		Map<String, Contact> sortedContact = contacts.entrySet().stream().sorted(Map.Entry.comparingByKey())
-				.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (oldValue, newValue) -> oldValue,
-						LinkedHashMap::new));
-
-		for (Map.Entry<String, Contact> entry : sortedContact.entrySet()) {
-
-			System.out.println(entry.getValue());
-		}
+//		Contact contacts;
+//		Map<String, Contact> sortedContact = contacts.entrySet().stream().sorted(Map.Entry.comparingByKey())
+//				.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (oldValue, newValue) -> oldValue,
+//						LinkedHashMap::new));
+//
+//		for (Map.Entry<String, Contact> entry : sortedContact.entrySet()) {
+//
+//			System.out.println(entry.getValue());
+//		}
 
 	}
+
+	/**
+	 * method to write list of contacts to a file
+	 * 
+	 * @param addressList
+	 */
+	public static void writeToFile(List<Contact> addressList) {
+		final StringBuffer contactBuffer = new StringBuffer();
+		addressList.forEach(new Consumer<Contact>() {
+			public void accept1(Contact contacts) {
+				String contactDataString = contacts.toString().concat("\n");
+				contactBuffer.append(contactDataString);
+			}
+
+			@Override
+			public void accept(Contact t) {
+
+			}
+		});
+
+		try {
+			Files.write(Paths.get(path), contactBuffer.toString().getBytes());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * method to read from the file
+	 */
+	public static void readFile() {
+		try {
+			Files.lines(new File(path).toPath()).forEach(System.out::println);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
 }

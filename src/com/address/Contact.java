@@ -14,6 +14,9 @@ public class Contact {
 	String phoneNo;
 	String email;
 
+	Contact(){
+		
+	}
 	Contact(String firstName, String lastName, String address, String city, String state, int zip, String phoneNo,
 			String email) {
 		this.firstName = firstName;
