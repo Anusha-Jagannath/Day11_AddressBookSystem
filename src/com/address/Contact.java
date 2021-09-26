@@ -1,5 +1,6 @@
 package com.address;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
@@ -113,6 +114,11 @@ public class Contact {
 				&& Objects.equals(email, other.email) && Objects.equals(firstName, other.firstName)
 				&& Objects.equals(lastName, other.lastName) && Objects.equals(phoneNo, other.phoneNo)
 				&& Objects.equals(state, other.state) && zip == other.zip;
+	}
+
+	public Collection<Contact> entrySet() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
