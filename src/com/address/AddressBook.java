@@ -292,7 +292,7 @@ public class AddressBook {
 	}
 
 	/**
-	 * method to sort person names,state,zip
+	 * method to sort person names,state and zip
 	 */
 	public static void sort() {
 		Contact contacts;
