@@ -1,0 +1,3 @@
+Smita,Shetty,Udupi,Udupi,Karnataka,768654,8765987654,smita@gmail.com
+Sarika,Pai,Maharastra,Mumbai,865489,7654321098,sarika@gmail.com
+Avni,Rai,Kolkata,kolkata,567894,9856785430,avni@gmail.com

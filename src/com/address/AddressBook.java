@@ -35,6 +35,7 @@ public class AddressBook {
 	static Map<String, Contact> map = new HashMap<>();
 	static List<Contact> list = new ArrayList<>(); // list stores multiple contacts
 	static String path = "/Users/anushajs/eclipse-workspace/Yml-training/Day11_AddressBook/src/data/address.txt";
+	static String csvPath = "/Users/anushajs/eclipse-workspace/Yml-training/Day11_AddressBook/src/data/addressbook.csv";
 
 	public static void main(String[] args) {
 		System.out.println("Welcome to Address Book Program");
@@ -46,7 +47,7 @@ public class AddressBook {
 		int option;
 		while (ch) {
 			System.out.println(
-					"1.Add contact\n2.Edit contact\n3.Delete contact\n4.Display contact\n5.Search contact by place\n6.View person by city\n7.View person by state\n8.Sort by name\n9.Sort by city\n10.Sort by zip\n11.write to file\n12.Read from file\n13.Exit");
+					"1.Add contact\n2.Edit contact\n3.Delete contact\n4.Display contact\n5.Search contact by place\n6.View person by city\n7.View person by state\n8.Sort by name\n9.Sort by city\n10.Sort by zip\n11.write to file\n12.Read from file\n13.Read csv\n14. write csv\n15.Exit");
 			option = scanner.nextInt();
 
 			switch (option) {
@@ -141,6 +142,12 @@ public class AddressBook {
 				readFile();
 				break;
 			case 13:
+				readFromCSV();
+				break;
+			case 14:
+				writeToCSV(list);
+				break;
+			case 15:
 				ch = false;
 				break;
 			default:
@@ -149,6 +156,48 @@ public class AddressBook {
 		}
 	}
 
+	/**
+	 * method to write to CSV file
+	 * 
+	 * @param addressList
+	 */
+	private static void writeToCSV(List<Contact> addressList) {
+		final StringBuffer contactBuffer = new StringBuffer();
+		addressList.forEach(new Consumer<Contact>() {
+			public void accept1(Contact contacts) {
+				String contactDataString = contacts.toString().concat("\n");
+				contactBuffer.append(contactDataString);
+			}
+
+			@Override
+			public void accept(Contact t) {
+
+			}
+		});
+
+		try {
+			Files.write(Paths.get(csvPath), contactBuffer.toString().getBytes());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * method to read from CSV file
+	 */
+	private static void readFromCSV() {
+		try {
+			Files.lines(new File(csvPath).toPath()).forEach(System.out::println);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * method to add contacts
+	 * 
+	 * @param addressBookName
+	 */
 	private static void addContact(String addressBookName) {
 		Scanner sc = new Scanner(System.in);
 		Scanner scanner = new Scanner(System.in);
