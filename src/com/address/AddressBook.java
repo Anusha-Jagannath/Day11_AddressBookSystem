@@ -1,16 +1,26 @@
 package com.address;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.function.Consumer;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 import java.util.Scanner;
 import java.util.Set;
@@ -47,7 +57,7 @@ public class AddressBook {
 		int option;
 		while (ch) {
 			System.out.println(
-					"1.Add contact\n2.Edit contact\n3.Delete contact\n4.Display contact\n5.Search contact by place\n6.View person by city\n7.View person by state\n8.Sort by name\n9.Sort by city\n10.Sort by zip\n11.write to file\n12.Read from file\n13.Read csv\n14. write csv\n15.Exit");
+					"1.Add contact\n2.Edit contact\n3.Delete contact\n4.Display contact\n5.Search contact by place\n6.View person by city\n7.View person by state\n8.Sort by name\n9.Sort by city\n10.Sort by zip\n11.write to file\n12.Read from file\n13.Read csv\n14. write csv\n15.Read from json\n16.Exit");
 			option = scanner.nextInt();
 
 			switch (option) {
@@ -148,12 +158,92 @@ public class AddressBook {
 				writeToCSV(list);
 				break;
 			case 15:
+				readFromJson();
+				break;
+
+			case 16:
 				ch = false;
 				break;
 			default:
 				ch = false;
 			}
 		}
+	}
+
+	/**
+	 * method to read from json file
+	 */
+	private static void readFromJson() {
+		Map<String, Double> map = new HashMap<>();
+		JSONParser jsonParser = new JSONParser();
+		try {
+			Reader reader = new FileReader(
+					"/Users/anushajs/eclipse-workspace/Yml-training/Day11_AddressBook/src/data/contacts.json");
+			JSONObject jsonObject = (JSONObject) jsonParser.parse(reader);
+			System.out.println(jsonObject);
+			JSONArray array = (JSONArray) jsonObject.get("AddressBook");
+			System.out.println(array);
+			Iterator<JSONObject> iterator = array.iterator();
+			while (iterator.hasNext()) {
+				JSONObject jsonObject2 = (JSONObject) iterator.next();
+				System.out.println(jsonObject2);
+				String name = (String) jsonObject2.get("firstName");
+				System.out.println(name);
+				String lastName = (String) jsonObject2.get("lastName");
+				String address = (String) jsonObject2.get("address");
+				String city = (String) jsonObject2.get("city");
+				String state = (String) jsonObject2.get("state");
+				int zip = (int) jsonObject2.get("zip");
+				String phone = (String) jsonObject2.get("phone");
+				String email = (String) jsonObject2.get("email");
+				System.out.println(name + " " + lastName + " " + address + " " + city + " " + state + " " + zip + " "
+						+ phone + " " + email);
+
+			}
+
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+
+		writeJson(map);
+
+	}
+
+	/**
+	 * method to write to json file
+	 * 
+	 * @param map
+	 */
+	private static void writeJson(final Map<String, Double> map) {
+		JSONArray array = new JSONArray();
+		for (Entry<String, Double> entry : map.entrySet()) {
+			JSONObject object = new JSONObject();
+			object.put("firstName", entry.getKey());
+			object.put("lastName", entry.getValue());
+			object.put("address", entry.getValue());
+			object.put("city", entry.getValue());
+			object.put("state", entry.getValue());
+			object.put("zip", entry.getValue());
+			object.put("phoneNo", entry.getKey());
+			object.put("email", entry.getKey());
+			array.add(object);
+		}
+		JSONObject mainObject = new JSONObject();
+		mainObject.put("results", array);
+		try {
+			FileWriter writer = new FileWriter(
+					"/Users/anushajs/eclipse-workspace/Yml-training/Day11_AddressBook/src/data/contacts.json");
+			writer.write(mainObject.toJSONString());
+			writer.flush();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		System.out.println(mainObject);
+		System.out.println(map);
 	}
 
 	/**
