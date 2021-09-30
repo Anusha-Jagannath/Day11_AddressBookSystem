@@ -87,7 +87,7 @@ public class AddressBookJDBC {
 		}
 		return success;
 	}
-	
+
 	/**
 	 * method to update the record
 	 * 
@@ -134,6 +134,11 @@ public class AddressBookJDBC {
 
 	}
 
+	/**
+	 * method to count record by city
+	 * 
+	 * @return
+	 */
 	public boolean countCity() {
 		Connection connection;
 		boolean success = false;
@@ -150,6 +155,11 @@ public class AddressBookJDBC {
 
 	}
 
+	/**
+	 * method to count records by state
+	 * 
+	 * @return
+	 */
 	public boolean countState() {
 		Connection connection;
 		boolean success = false;
@@ -165,6 +175,11 @@ public class AddressBookJDBC {
 		return success;
 	}
 
+	/**
+	 * method to count record by city fails
+	 * 
+	 * @return
+	 */
 	public boolean countCityFails() {
 
 		Connection connection;
@@ -175,6 +190,27 @@ public class AddressBookJDBC {
 			ResultSet resultSet = statement.executeQuery("select count(*) contact group by city");
 			System.out.println(resultSet.getInt(1));
 			success = true;
+		} catch (ClassNotFoundException | SQLException e) {
+			return success;
+		}
+		return success;
+	}
+
+	/**
+	 * method to add record
+	 * 
+	 * @return
+	 */
+	public boolean addrecord() {
+		Connection connection;
+		boolean success = false;
+		try {
+			connection = getConnection();
+			Statement statement = connection.createStatement();
+			int result = statement.executeUpdate(
+					"insert into contacts values('Hita','K','Jharkand','Jk',678965,'8907689769','hita@gmail.com')");
+			if (result > 0)
+				success = true;
 		} catch (ClassNotFoundException | SQLException e) {
 			return success;
 		}
