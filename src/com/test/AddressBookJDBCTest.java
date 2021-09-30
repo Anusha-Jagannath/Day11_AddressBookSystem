@@ -105,9 +105,9 @@ public class AddressBookJDBCTest {
 		boolean result = addressbook.countCityFails();
 		Assert.assertFalse(result);
 	}
-	
+
 	/**
-	 * test cases to test count by state from database fails
+	 * test cases to test count by state from database
 	 * 
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
@@ -117,6 +117,19 @@ public class AddressBookJDBCTest {
 			throws ClassNotFoundException, SQLException {
 		AddressBookJDBC addressbook = new AddressBookJDBC();
 		boolean result = addressbook.countState();
+		Assert.assertTrue(result);
+	}
+
+	/**
+	 * test cases to add record to database
+	 * 
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	@Test
+	public void givenEmployeePayrollDatabase_ShouldAddRecord() throws ClassNotFoundException, SQLException {
+		AddressBookJDBC addressbook = new AddressBookJDBC();
+		boolean result = addressbook.addrecord();
 		Assert.assertTrue(result);
 	}
 }
