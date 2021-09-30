@@ -80,7 +80,26 @@ public class AddressBookJDBC {
 		boolean success = false;
 		Connection connection = getConnection();
 		Statement statement = connection.createStatement();
-		int result = statement.executeUpdate("update contact set lname='Pai' where fname='Hima'");
+		int result = statement.executeUpdate("update contact set lname='K' where fname='Geeta'");
+		if (result > 0) {
+			System.out.println("updated successfully");
+			success = true;
+		}
+		return success;
+	}
+	
+	/**
+	 * method to update the record
+	 * 
+	 * @return
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	public boolean updateDataFail() throws ClassNotFoundException, SQLException {
+		boolean success = false;
+		Connection connection = getConnection();
+		Statement statement = connection.createStatement();
+		int result = statement.executeUpdate("update contact set lname='K' where name='Geeta'");
 		if (result > 0) {
 			System.out.println("updated successfully");
 			success = true;
@@ -94,16 +113,72 @@ public class AddressBookJDBC {
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public void selectOnDate() throws ClassNotFoundException, SQLException {
-		Connection connection = getConnection();
-		Statement statement = connection.createStatement();
-		ResultSet resultSet = statement.executeQuery(
-				"select * from contacts where start BETWEEN CAST('2019-09-08' AS DATE) AND DATE(NOW());");
-		while (resultSet.next()) {
-			System.out.println(resultSet.getString(1) + " " + resultSet.getString(2) + " " + resultSet.getString(3)
-					+ " " + resultSet.getString(4) + " " + resultSet.getString(5) + " " + resultSet.getInt(6) + " "
-					+ resultSet.getString(7) + " " + resultSet.getString(8));
+	public boolean selectOnDate() {
+		Connection connection;
+		boolean result = false;
+		try {
+			connection = getConnection();
+			Statement statement = connection.createStatement();
+			ResultSet resultSet = statement.executeQuery(
+					"select * from contacts where start BETWEEN CAST('2019-09-08' AS DATE) AND DATE(NOW());");
+			while (resultSet.next()) {
+				System.out.println(resultSet.getString(1) + " " + resultSet.getString(2) + " " + resultSet.getString(3)
+						+ " " + resultSet.getString(4) + " " + resultSet.getString(5) + " " + resultSet.getInt(6) + " "
+						+ resultSet.getString(7) + " " + resultSet.getString(8));
+				result = true;
+			}
+		} catch (ClassNotFoundException | SQLException e) {
+			return result;
 		}
+		return result;
+
+	}
+
+	public boolean countCity() {
+		Connection connection;
+		boolean success = false;
+		try {
+			connection = getConnection();
+			Statement statement = connection.createStatement();
+			ResultSet resultSet = statement.executeQuery("select count(*) from contact group by city");
+			System.out.println(resultSet.getInt(1));
+			success = true;
+		} catch (ClassNotFoundException | SQLException e) {
+			return success;
+		}
+		return success;
+
+	}
+
+	public boolean countState() {
+		Connection connection;
+		boolean success = false;
+		try {
+			connection = getConnection();
+			Statement statement = connection.createStatement();
+			ResultSet resultSet = statement.executeQuery("select count(*) from contact group by state");
+			success = true;
+			System.out.println(resultSet.getInt(1));
+		} catch (ClassNotFoundException | SQLException e) {
+			return success;
+		}
+		return success;
+	}
+
+	public boolean countCityFails() {
+
+		Connection connection;
+		boolean success = false;
+		try {
+			connection = getConnection();
+			Statement statement = connection.createStatement();
+			ResultSet resultSet = statement.executeQuery("select count(*) contact group by city");
+			System.out.println(resultSet.getInt(1));
+			success = true;
+		} catch (ClassNotFoundException | SQLException e) {
+			return success;
+		}
+		return success;
 	}
 
 }
