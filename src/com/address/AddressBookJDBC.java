@@ -2,7 +2,9 @@ package com.address;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Enumeration;
 
 import org.junit.Test;
@@ -47,6 +49,24 @@ public class AddressBookJDBC {
 			Driver driverClass = (Driver) driverList.nextElement();
 			System.out.println(" " + driverClass.getClass().getName());
 		}
+	}
+
+	/**
+	 * method to select data from the database
+	 * 
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	public void selectData() throws ClassNotFoundException, SQLException {
+		Connection connection = getConnection();
+		Statement statement = connection.createStatement();
+		ResultSet resultSet = statement.executeQuery("select * from contact");
+		while (resultSet.next()) {
+			System.out.println(resultSet.getString(1) + " " + resultSet.getString(2) + " " + resultSet.getString(3)
+					+ " " + resultSet.getString(4) + " " + resultSet.getString(5) + " " + resultSet.getInt(6) + " "
+					+ resultSet.getString(7) + " " + resultSet.getString(8));
+		}
+
 	}
 
 }
