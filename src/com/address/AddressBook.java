@@ -448,14 +448,14 @@ public class AddressBook {
 	 */
 	public static void sort() {
 		Contact contacts;
-		Map<String, Contact> sortedContact = contacts.entrySet().stream().sorted(Map.Entry.comparingByKey())
+		/**Map<String, Contact> sortedContact = contacts.entrySet().stream().sorted(Map.Entry.comparingByKey())
 				.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (oldValue, newValue) -> oldValue,
 						LinkedHashMap::new));
 
 		for (Map.Entry<String, Contact> entry : sortedContact.entrySet()) {
 
 			System.out.println(entry.getValue());
-		}
+		}*/
 
 	}
 

@@ -69,4 +69,16 @@ public class AddressBookJDBC {
 
 	}
 
+	public boolean updateData() throws ClassNotFoundException, SQLException {
+		boolean success = false;
+		Connection connection = getConnection();
+		Statement statement = connection.createStatement();
+		int result = statement.executeUpdate("update contact set lname='Pai' where fname='Hima'");
+		if(result>0) {
+			System.out.println("updated successfully");
+			success = true;
+		}
+		return success;
+	}
+
 }
