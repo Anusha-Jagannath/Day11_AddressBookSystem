@@ -49,4 +49,18 @@ public class AddressBookJDBCTest {
 		Assert.assertTrue(result);
 
 	}
+	
+	/**
+	 * test cases to test data retrieval from database
+	 * 
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	@Test
+	public void givenEmployeePayrollDatabase_ShouldRetrieveDataBasedOnDate() throws ClassNotFoundException, SQLException {
+		AddressBookJDBC addressbook = new AddressBookJDBC();
+		addressbook.selectOnDate();
+	}
+	
+	
 }

@@ -69,16 +69,41 @@ public class AddressBookJDBC {
 
 	}
 
+	/**
+	 * method to update the record
+	 * 
+	 * @return
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
 	public boolean updateData() throws ClassNotFoundException, SQLException {
 		boolean success = false;
 		Connection connection = getConnection();
 		Statement statement = connection.createStatement();
 		int result = statement.executeUpdate("update contact set lname='Pai' where fname='Hima'");
-		if(result>0) {
+		if (result > 0) {
 			System.out.println("updated successfully");
 			success = true;
 		}
 		return success;
+	}
+
+	/**
+	 * method to select the data on date
+	 * 
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	public void selectOnDate() throws ClassNotFoundException, SQLException {
+		Connection connection = getConnection();
+		Statement statement = connection.createStatement();
+		ResultSet resultSet = statement.executeQuery(
+				"select * from contacts where start BETWEEN CAST('2019-09-08' AS DATE) AND DATE(NOW());");
+		while (resultSet.next()) {
+			System.out.println(resultSet.getString(1) + " " + resultSet.getString(2) + " " + resultSet.getString(3)
+					+ " " + resultSet.getString(4) + " " + resultSet.getString(5) + " " + resultSet.getInt(6) + " "
+					+ resultSet.getString(7) + " " + resultSet.getString(8));
+		}
 	}
 
 }
